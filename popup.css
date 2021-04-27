@@ -20,3 +20,29 @@ header {
 	width: 100px;
 	margin-left: 20px;
 }
+
+#graphBox {
+	width: 250px;
+	height: 250px;
+	margin: auto;
+	box-shadow: 3px 3px 6px rgba(0,0,0,0.16), -3px -3px 6px rgba(255,255,255,0.86);
+	margin-top: 35px;
+}
+
+#links {
+	padding: 0px 50px;
+	margin-top: 20px;
+}
+
+#logout {
+	float: right;
+}
+
+a {
+	color: black;
+	transition: .5s;
+}
+
+a:hover {
+	color: #676767;
+}
