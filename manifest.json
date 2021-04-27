@@ -1,6 +1,11 @@
 {
-	"name": "Melon",
-	"description": "Measuring the Emotional Leverage of Online Networks",
-	"version": "1.0",
-	"manifest_version": 3
+    "name": "Melon",
+    "description": "Measuring the Emotional Leverage of Online Networks",
+    "version": "1.0",
+    "manifest_version": 3,
+    "icons": {
+        "16": "img/icon16.png",
+        "48": "img/icon48.png",
+        "128": "img/icon128.png"
+    }
 }
