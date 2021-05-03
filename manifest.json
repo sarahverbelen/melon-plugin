@@ -10,5 +10,9 @@
     },
 	"action": {
 		"default_popup": "popup.html"
-	}
+	},
+    "content_scripts": [{
+        "matches": ["https://*.reddit.com/*"],
+        "js": ["dist/main.js"]
+    }]
 }
