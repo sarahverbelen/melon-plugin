@@ -14,3 +14,7 @@ This plugin was created as a Chrome Extension. Follow these steps (from the Chro
 
 ## Used resources
 * [Chrome Developer Documentation](https://developer.chrome.com/docs/extensions/mv3/getstarted/)
+* [Axios](https://github.com/axios/axios)
+* [Webpack](https://webpack.js.org/)
+* [Jquery](https://jquery.com/)
+* [ChartJs](https://www.chartjs.org/)
