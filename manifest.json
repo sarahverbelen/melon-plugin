@@ -13,6 +13,6 @@
 	},
     "content_scripts": [{
         "matches": ["https://*.reddit.com/*"],
-        "js": ["dist/main.js"]
+        "js": ["dist/background.js"]
     }]
 }
