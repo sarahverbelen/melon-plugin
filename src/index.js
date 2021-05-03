@@ -3,11 +3,24 @@ const axios = require('axios');
 
 console.log("scraper running!");
 
-axios.post('http://127.0.0.1:5000/record', {
-    html: document.documentElement.innerHTML
-}).then(function (res) {
-    console.log(res.data);
-});
+let formData = new FormData();
+formData.append('html', document.documentElement.innerHTML)
+formData.append('source', 'reddit')
+
+axios({
+	method: 'post',
+	url: 'http://127.0.0.1:5000/record',
+	data: formData,
+	headers: { "Content-Type": "multipart/form-data" },
+  })
+	.then(function (response) {
+	  //handle success
+	  console.log(response);
+	})
+	.catch(function (response) {
+	  //handle error
+	  console.log(response);
+	});
 // solution for infinite scroll based on: https://stackoverflow.com/questions/57313620/how-to-run-chrome-extension-code-repeatedly-on-infinite-scroll-pages
 const targetNode = document.body;
 
@@ -30,10 +43,15 @@ const callback = function (mutationsList, observer) {
                 if (mutationHtml != undefined) {
                     h3Index = mutationHtml.search('h3');
                     if (h3Index != -1) {
-                        // console.log(mutation);
-                        axios.post('http://127.0.0.1:5000/getAll', {
-                            html: mutationHtml,
-                        }).then(function (res) {
+                        let postFormData = new FormData();
+						postFormData.append('html', mutationHtml);
+						postFormData.append('source', 'reddit');
+                        axios({
+							method: 'post',
+							url: 'http://127.0.0.1:5000/record',
+							data: postFormData,
+							headers: { "Content-Type": "multipart/form-data" },
+						  }).then(function (res) {
                             if (res.data.length > 0) {
                                 // console.log(res.data);
                                 let data = res.data[0];
