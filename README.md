@@ -9,6 +9,9 @@ This plugin was created as a Chrome Extension. Follow these steps (from the Chro
 2. Enable Developer Mode by clicking the toggle switch next to Developer mode.
 3. Click the `Load unpacked` button and select the extension directory.
 
+## Commands
+* `webpack`: bundles the code from `/src` into `/dist`
+
 ## Contributors
 * [**Sarah Verbelen**](sarah.verbelen@student.ehb.be): Developer 
 
