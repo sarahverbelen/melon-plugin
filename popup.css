@@ -5,7 +5,7 @@
 
 body {
 	width: 350px;
-	height: 400px;
+	height: 440px;
 	background-color: #EFEFEF;
 }
 
@@ -25,7 +25,12 @@ header {
 	width: 250px;
 	height: 250px;
 	margin: auto;
-	margin-top: 35px;
+	margin-top: 15px;
+}
+
+h2 {
+	text-align: center;
+	margin-top: 25px;
 }
 
 #links {
