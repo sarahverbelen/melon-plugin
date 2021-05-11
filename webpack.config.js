@@ -4,6 +4,7 @@ module.exports = {
 	entry: {
 		reddit: ['./src/reddit.js'],
 		twitter: ['./src/twitter.js'],
+		facebook: ['./src/facebook.js'],
 		popup: ['./src/popup.js']
 	  },
   output: {

@@ -1,19 +1,33 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <link rel="stylesheet" href="popup.css">
-  </head>
-  <body>
-    <script src='dist/popup.js'></script>
-    <header><img src='img/logoSmall.png' alt='logo' id='logo'/></header>
+
+<head>
+  <link rel="stylesheet" href="popup.css">
+</head>
+
+<body>
+  <script src='dist/popup.js'></script>
+  <header><img src='img/logoSmall.png' alt='logo' id='logo' /></header>
+  <div id='logInForm'>
+    <h2>Login</h2>
+    <form>
+      <input type='email' name='email' id='email'> <label for='email'>Email</label>
+      <input type='password' name='password' id='password'> <label for='password'>Wachtwoord</label>
+      <button type='submit'>Log in</button>
+    </form>
+    <a href="http://localhost:3000/login" id='loginLink'>Nog geen account?</a>
+  </div>
+  <div id='graph'>
     <h2>Verdeling van vandaag</h2>
     <div id='graphBox'>
       <canvas id='chart'></canvas>
     </div>
-	  <div id='links'>
-		  <a href='#'>Ga naar dashboard</a>
-	  	<a href='#' id='logout'>Uitloggen</a>
-  	</div>
-    <div id='debug'></div>
-  </body>
+    <div id='links'>
+      <a href='#'>Ga naar dashboard</a>
+      <a href='#' id='logout'>Uitloggen</a>
+    </div>
+  </div>
+  <div id='debug'></div>
+</body>
+
 </html>

@@ -50,3 +50,37 @@ a {
 a:hover {
 	color: #676767;
 }
+
+input {
+	padding: 10px;
+	margin-right: 20px;
+	margin-bottom: 20px;
+	margin-left: 50px;
+  }
+
+form {
+	margin-top: 25px;
+}
+
+#loginLink {
+	margin-left: 50px;
+}
+
+button {
+	background-color: #5AA361;
+	padding: 15px 25px;
+	box-shadow: 3px 3px 6px rgba(0,0,0,0.16), -3px -3px 6px rgba(255,255,255,0.86);
+	transition: 0.5s;
+	width: 250px;
+	text-align: center;
+	color: white;
+	font-size: 15px;
+	margin-left: 50px;
+	border: none;
+	margin-bottom: 25px;
+}
+
+button:hover {
+	box-shadow: 1px 1px 3px rgba(0,0,0,0.2), -3px -3px 6px rgba(255,255,255,0.86);
+	background-color: #529258;
+}

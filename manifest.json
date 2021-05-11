@@ -3,6 +3,10 @@
     "description": "Measuring the Emotional Leverage of Online Networks",
     "version": "1.0",
     "manifest_version": 3,
+    "permissions": [
+        "cookies",
+        "tabs"
+    ],
     "icons": {
         "16": "img/icon16.png",
         "48": "img/icon48.png",
@@ -18,5 +22,9 @@
     {
         "matches": ["https://*.twitter.com/*"],
         "js": ["dist/twitter.js"]
+    },
+    {
+        "matches": ["https://*.facebook.com/*"],
+        "js": ["dist/facebook.js"]
     }]
 }
