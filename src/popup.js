@@ -3,8 +3,6 @@ const $ = require('jquery');
 import { Chart, registerables } from 'chart.js';
 Chart.register(...registerables);
 
-import { bake_cookie, read_cookie } from 'sfcookies';
-
 $(function() {
     // handles the links (found here: https://stackoverflow.com/questions/8915845/chrome-extension-open-a-link-from-popup-html-in-a-new-tab)
     $('body').on('click', 'a', function(){
@@ -18,17 +16,33 @@ $(function() {
         validateForm();
     });
 
-    
-    if (read_cookie('loggedIn') == true) {
+    $("#graph").hide();
+    $('#logInForm').show();
+
+    // initial loading
+    chrome.storage.sync.get('loggedInObject', function(result) {
+        loginForm(result.loggedInObject.loggedIn, result.loggedInObject.auth_token);
+    });
+
+    // if the value has changed
+    chrome.storage.onChanged.addListener((changes, area) => {
+        if (area === 'sync' && changes.loggedInObject?.newValue) {
+            loginForm(changes.loggedInObject.newValue.loggedIn, changes.loggedInObject.newValue.auth_token)
+        }
+    });
+});
+
+function loginForm(loggedIn, auth_token) {
+    if (loggedIn == true) {
         // only show the graph when the user is logged in
         $("#graph").show();
         $('#logInForm').hide();
-    
+        
         // getting the data
         axios({
             method: 'get',
             url: 'http://127.0.0.1:5000/record/',
-            headers: {'Authorization': read_cookie('auth_token')}
+            headers: {'Authorization': auth_token}
         })
         .then(function(response) {
             // if the data was received, make the chart
@@ -42,8 +56,7 @@ $(function() {
         $("#graph").hide();
         $('#logInForm').show();
     }
-
-});
+}
 
 function createChart(sentimentData) {
     const data = {
@@ -90,8 +103,11 @@ function validateForm() {
         data: formData,
         headers: { "Content-Type": "multipart/form-data" },
     }).then(function (res) {
-        bake_cookie('loggedIn', true);
-        bake_cookie('auth_token', res.data);
+        let loggedInObject = {
+            loggedIn: true,
+            auth_token: res.data
+        }
+        chrome.storage.sync.set({loggedInObject});
 
         $("#graph").show();
         $('#logInForm').hide();
