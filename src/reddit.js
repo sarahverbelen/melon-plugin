@@ -1,5 +1,5 @@
-// this is the background script that will need to be compiled in order to use npm packages.
 const axios = require('axios');
+import { read_cookie } from 'sfcookies';
 
 console.log("scraper running!");
 
@@ -7,11 +7,14 @@ let formData = new FormData();
 formData.append('html', document.documentElement.innerHTML)
 formData.append('source', 'reddit')
 
+console.log(read_cookie('auth_token'));
+
 axios({
 	method: 'post',
 	url: 'http://127.0.0.1:5000/record',
 	data: formData,
-	headers: { "Content-Type": "multipart/form-data" },
+	headers: { "Content-Type": "multipart/form-data", "Authorization": read_cookie('auth_token') },
+
   })
 	.then(function (response) {
 	  //handle success
@@ -39,9 +42,9 @@ const callback = function (mutationsList, observer) {
         // console.log(mutation);
         if (mutation.type == 'childList') {
             if (mutation.addedNodes.length > 0) {
-                mutationHtml = mutation.addedNodes[0].innerHTML;
+                let mutationHtml = mutation.addedNodes[0].innerHTML;
                 if (mutationHtml != undefined) {
-                    h3Index = mutationHtml.search('h3');
+                    let h3Index = mutationHtml.search('h3');
                     if (h3Index != -1) {
                         let postFormData = new FormData();
 						postFormData.append('html', mutationHtml);
@@ -50,7 +53,7 @@ const callback = function (mutationsList, observer) {
 							method: 'post',
 							url: 'http://127.0.0.1:5000/record',
 							data: postFormData,
-							headers: { "Content-Type": "multipart/form-data" },
+							headers: { "Content-Type": "multipart/form-data", "Authorization": read_cookie('auth_token') },
 						  }).then(function (res) {
                             if (res.data.length > 0) {
                                 // console.log(res.data);

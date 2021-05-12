@@ -1,5 +1,5 @@
-// this is the background script that will need to be compiled in order to use npm packages.
 const axios = require('axios');
+import { read_cookie } from 'sfcookies';
 
 console.log("scraper running!");
 
@@ -12,7 +12,7 @@ setTimeout(() => {
         method: 'post',
         url: 'http://127.0.0.1:5000/record',
         data: formData,
-        headers: { "Content-Type": "multipart/form-data" },
+        headers: { "Content-Type": "multipart/form-data", "Authorization": read_cookie('auth_token') },
     })
         .then(function (response) {
         //handle success
