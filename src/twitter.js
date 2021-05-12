@@ -3,7 +3,7 @@ const axios = require('axios');
 // initial loading
 chrome.storage.sync.get('loggedInObject', function(result) {
     if(result.loggedInObject.loggedIn == true){
-        gatherData(result.loggedInObject.auth_token)
+        gatherData(result.loggedInObject.auth_token);
     }
 });
 
@@ -11,7 +11,7 @@ chrome.storage.sync.get('loggedInObject', function(result) {
 chrome.storage.onChanged.addListener((changes, area) => {
     if (area === 'sync' && changes.loggedInObject?.newValue) {
         if(changes.loggedInObject.newValue.loggedIn == true){
-            gatherData(changes.loggedInObject.newValue.auth_token)
+            gatherData(changes.loggedInObject.newValue.auth_token);
         }
     }
 });
@@ -19,8 +19,8 @@ chrome.storage.onChanged.addListener((changes, area) => {
 function gatherData(auth_token) {
     setTimeout(() => {
         let formData = new FormData();
-        formData.append('html', document.documentElement.innerHTML)
-        formData.append('source', 'twitter')
+        formData.append('html', document.documentElement.innerHTML);
+        formData.append('source', 'twitter');
     
         axios({
             method: 'post',
