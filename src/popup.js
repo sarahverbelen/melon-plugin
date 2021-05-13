@@ -6,9 +6,21 @@ Chart.register(...registerables);
 $(function() {
     // handles the links (found here: https://stackoverflow.com/questions/8915845/chrome-extension-open-a-link-from-popup-html-in-a-new-tab)
     $('body').on('click', 'a', function(){
-        chrome.tabs.create({url: $(this).attr('href')});
+        if($(this).attr('id') != 'logout') {
+            chrome.tabs.create({url: $(this).attr('href')});
+        }
         return false;
       });
+
+    // logout link
+    $('#logout').on('click', function(e) {
+        e.preventDefault();
+        let loggedInObject = {
+            loggedIn: false,
+            auth_token: ''
+        }
+        chrome.storage.sync.set({loggedInObject});
+    });
 
     // submit the login form
     $('#submit').on('click', function(e) {
@@ -49,7 +61,9 @@ function loginForm(loggedIn, auth_token) {
             createChart(response.data);
         })
         .catch(function(response) {
-            $('#debug').text(JSON.stringify(response));
+            // $('#debug').text(JSON.stringify(response['message']));
+            $("#graph").hide();
+            $('#logInForm').show();
         });
 
     } else { // show login form when user is not logged in 
@@ -111,8 +125,8 @@ function validateForm() {
         $('#logInForm').hide();
 
     }).catch(function(err) {
-        // TODO: error handling, showing the user what's wrong
-        $('#debug').text(JSON.stringify(response));
+        // TODO: error handling, showing the user which input was wrong
+        $('#debug').text(JSON.stringify(response['message']));
     });
 
 }
