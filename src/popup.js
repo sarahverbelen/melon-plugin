@@ -62,15 +62,13 @@ function createChart(sentimentData) {
     const data = {
         labels: [
             'Positief',
-            'Neutraal',
             'Negatief'
         ],
         datasets: [{
             label: 'sentiment',
-            data: [sentimentData.positiveCount, sentimentData.neutralCount, sentimentData.negativeCount],
+            data: [sentimentData.positiveCount, sentimentData.negativeCount],
             backgroundColor: [
                 'rgb(89, 161, 96)', // positive
-                'rgb(103, 103, 103)', // neutral
                 'rgb(235, 98, 86)' // negative
             ],
             hoverOffset: 2,
