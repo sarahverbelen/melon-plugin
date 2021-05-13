@@ -69,33 +69,7 @@ function gatherData(auth_token) {
                                 data: postFormData,
                                 headers: { "Content-Type": "multipart/form-data", "Authorization": auth_token },
                               }).then(function (res) {
-                                if (res.data.length > 0) {
                                     // console.log(res.data);
-                                    let data = res.data[0];
-    
-                                    if (data.sentiment == "neg" || data.sentiment == -1) { // if it's negative, make it look negative
-                                        let found = false;
-                                        let h3s = document.getElementsByTagName("h3");
-                                        for (h3 of h3s) {
-                                            if (h3.innerHTML == data.text) {
-                                                h3.classList.add('neg');
-                                                found = true;
-                                                break;
-                                            }
-                                        }
-                                        if (!found) {
-                                            let ps = document.getElementsByTagName("p");
-                                            for (p of ps) {
-                                                if (p.innerHTML == data.text) {
-                                                    p.classList.add('neg');
-                                                    found = true;
-                                                    break;
-                                                }
-                                            }
-                                        }
-                                    }
-    
-                                }
                             });
                         }
                     }
