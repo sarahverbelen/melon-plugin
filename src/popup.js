@@ -46,6 +46,8 @@ $(function() {
 
 function loginForm(loggedIn, auth_token) {
     if (loggedIn == true) {
+        // apply the settings
+        getSettings(auth_token);
         // only show the graph when the user is logged in
         $("#graph").show();
         $('#logInForm').hide();
@@ -120,13 +122,30 @@ function validateForm() {
             auth_token: res.data
         }
         chrome.storage.sync.set({loggedInObject});
+        getSettings(res.data);
 
         $("#graph").show();
         $('#logInForm').hide();
 
     }).catch(function(err) {
         // TODO: error handling, showing the user which input was wrong
-        $('#debug').text(JSON.stringify(response['message']));
+        // $('#debug').text(JSON.stringify(response['message']));
     });
 
+}
+
+function getSettings(auth_token) {
+    axios({
+        method: 'get',
+        url: 'http://localhost:5000/me',
+        headers: {'Authorization': auth_token},
+    }).then(function (res) {
+        // $('#debug').text(JSON.stringify(res.data.settings));
+        let settingsObject = res.data.settings
+        chrome.storage.sync.set({settingsObject});
+
+    }).catch(function(err) {
+        // TODO: error handling, showing the user which input was wrong
+        // $('#debug').text(JSON.stringify(err));
+    });
 }
