@@ -12,7 +12,10 @@
     <h2>Login</h2>
     <form name='loginForm'>
       <input type='email' name='email' id='email'> <label for='email'>Email</label>
+      <span class='error' id='emailError'>Gelieve een geldig emailadres in te vullen.</span>
       <input type='password' name='password' id='password'> <label for='password'>Wachtwoord</label>
+      <span class='error' id='passwordError'>Gelieve een wachtwoord in te vullen.</span>
+      <span class='error' id='error'>Onjuist emailadres of wachtwoord</span>
       <button id='submit'>Log in</button>
     </form>
     <a href="http://localhost:3000/login" id='loginLink'>Nog geen account?</a>
@@ -20,6 +23,7 @@
   <div id='graph'>
     <h2>Verdeling van vandaag</h2>
     <div id='graphBox'>
+      <span id='noData'>Je hebt vandaag nog geen berichten gezien! Surf naar een sociale media website zoals Facebook, Reddit of Twitter en zie de data hier verschijnen.</span>
       <canvas id='chart'></canvas>
     </div>
     <div id='links'>

@@ -54,7 +54,8 @@ a:hover {
 input {
 	padding: 10px;
 	margin-right: 20px;
-	margin-bottom: 20px;
+	margin-bottom: 10px;
+	margin-top: 10px;
 	margin-left: 50px;
   }
 
@@ -78,9 +79,16 @@ button {
 	margin-left: 50px;
 	border: none;
 	margin-bottom: 25px;
+	margin-top: 10px;
 }
 
 button:hover {
 	box-shadow: 1px 1px 3px rgba(0,0,0,0.2), -3px -3px 6px rgba(255,255,255,0.86);
 	background-color: #529258;
+}
+
+.error {
+	color: #EB6256;
+	margin-left: 50px;
+	display: block;
 }

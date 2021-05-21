@@ -22,6 +22,12 @@ $(function() {
         chrome.storage.sync.set({loggedInObject});
     });
 
+    // hide the errors
+    $('#error').hide();
+    $('#passwordError').hide();
+    $("#emailError").hide();
+    $("#noData").hide();
+
     // submit the login form
     $('#submit').on('click', function(e) {
         e.preventDefault();
@@ -60,7 +66,13 @@ function loginForm(loggedIn, auth_token) {
         })
         .then(function(response) {
             // if the data was received, make the chart
-            createChart(response.data);
+            // $('#debug').text(JSON.stringify(response.data));
+            if(response.data.positiveCount == 0 && response.data.negativeCount == 0) {
+                $("#noData").show();
+            } else {
+                createChart(response.data);
+            }
+            
         })
         .catch(function(response) {
             // $('#debug').text(JSON.stringify(response['message']));
@@ -107,30 +119,44 @@ function validateForm() {
     const email = document.forms['loginForm']['email'].value;
     const password = document.forms['loginForm']['password'].value;
 
-    let formData = new FormData();
-	formData.append('email', email);
-	formData.append('password', password);
+    $("#error").hide();
 
-    axios({
-        method: 'post',
-        url: 'http://localhost:5000/login',
-        data: formData,
-        headers: { "Content-Type": "multipart/form-data" },
-    }).then(function (res) {
-        let loggedInObject = {
-            loggedIn: true,
-            auth_token: res.data
+    if(/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/.test(email)){ // check if email is valid
+        $("#emailError").hide();
+        if(password != '') {
+            $("#passwordError").hide();
+
+            let formData = new FormData();
+            formData.append('email', email);
+            formData.append('password', password);
+
+            axios({
+                method: 'post',
+                url: 'http://localhost:5000/login',
+                data: formData,
+                headers: { "Content-Type": "multipart/form-data" },
+            }).then(function (res) {
+                let loggedInObject = {
+                    loggedIn: true,
+                    auth_token: res.data
+                }
+                chrome.storage.sync.set({loggedInObject});
+                getSettings(res.data);
+
+                $("#graph").show();
+                $('#logInForm').hide();
+
+            }).catch(function(err) {
+                $("#error").show();
+                // $('#debug').text(JSON.stringify(response['message']));
+            });
+        } else {
+            $("#passwordError").show();
         }
-        chrome.storage.sync.set({loggedInObject});
-        getSettings(res.data);
 
-        $("#graph").show();
-        $('#logInForm').hide();
-
-    }).catch(function(err) {
-        // TODO: error handling, showing the user which input was wrong
-        // $('#debug').text(JSON.stringify(response['message']));
-    });
+    } else {
+        $("#emailError").show();
+    }
 
 }
 
