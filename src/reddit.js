@@ -1,4 +1,5 @@
 const axios = require('axios');
+import environment from '../src/environments.json';
 
 // get the settings
 chrome.storage.sync.get('settingsObject', function(res) {
@@ -29,7 +30,7 @@ chrome.storage.sync.get('settingsObject', function(res) {
         function gatherData(auth_token) {
             axios({
                 method: 'post',
-                url: 'http://127.0.0.1:5000/record',
+                url: `${environment['api-url']}/record`,
                 data: formData,
                 headers: { "Content-Type": "multipart/form-data", "Authorization": auth_token },
             
@@ -69,7 +70,7 @@ chrome.storage.sync.get('settingsObject', function(res) {
                                     postFormData.append('source', 'reddit');
                                     axios({
                                         method: 'post',
-                                        url: 'http://127.0.0.1:5000/record',
+                                        url: `${environment['api-url']}/record`,
                                         data: postFormData,
                                         headers: { "Content-Type": "multipart/form-data", "Authorization": auth_token },
                                     }).then(function (res) {

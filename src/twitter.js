@@ -1,4 +1,5 @@
 const axios = require('axios');
+import environment from '../src/environments.json';
 
 // get the settings
 chrome.storage.sync.get('settingsObject', function(res) {
@@ -31,7 +32,7 @@ chrome.storage.sync.get('settingsObject', function(res) {
             
                 axios({
                     method: 'post',
-                    url: 'http://127.0.0.1:5000/record',
+                    url: `${environment['api-url']}/record`,
                     data: formData,
                     headers: { "Content-Type": "multipart/form-data", "Authorization": auth_token },
                 })

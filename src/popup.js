@@ -2,6 +2,7 @@ const axios = require('axios');
 const $ = require('jquery');
 import { Chart, registerables } from 'chart.js';
 Chart.register(...registerables);
+import environment from '../src/environments.json';
 
 $(function() {
     // handles the links (found here: https://stackoverflow.com/questions/8915845/chrome-extension-open-a-link-from-popup-html-in-a-new-tab)
@@ -61,7 +62,7 @@ function loginForm(loggedIn, auth_token) {
         // getting the data
         axios({
             method: 'get',
-            url: 'http://127.0.0.1:5000/record/',
+            url: `${environment['api-url']}/record`,
             headers: {'Authorization': auth_token}
         })
         .then(function(response) {
@@ -132,7 +133,7 @@ function validateForm() {
 
             axios({
                 method: 'post',
-                url: 'http://localhost:5000/login',
+                url: `${environment['api-url']}/login`,
                 data: formData,
                 headers: { "Content-Type": "multipart/form-data" },
             }).then(function (res) {
@@ -163,7 +164,7 @@ function validateForm() {
 function getSettings(auth_token) {
     axios({
         method: 'get',
-        url: 'http://localhost:5000/me',
+        url: `${environment['api-url']}/me`,
         headers: {'Authorization': auth_token},
     }).then(function (res) {
         // $('#debug').text(JSON.stringify(res.data.settings));
