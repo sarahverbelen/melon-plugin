@@ -28,6 +28,13 @@ header {
 	margin-top: 15px;
 }
 
+#loading {
+	width: 150px;
+	height: 150px;
+	margin-left: 50px;
+	margin-top: 50px;
+}
+
 h2 {
 	text-align: center;
 	margin-top: 25px;
@@ -57,6 +64,8 @@ input {
 	margin-bottom: 10px;
 	margin-top: 10px;
 	margin-left: 50px;
+	border: none;
+	box-shadow: 0px 3px 10px rgba(0,0,0,0.16);
   }
 
 form {

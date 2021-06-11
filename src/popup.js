@@ -21,6 +21,7 @@ $(function() {
             auth_token: ''
         }
         chrome.storage.sync.set({loggedInObject});
+        window.close();
     });
 
     // hide the errors
@@ -28,6 +29,9 @@ $(function() {
     $('#passwordError').hide();
     $("#emailError").hide();
     $("#noData").hide();
+
+    // hide the loading 
+    $('#loading').hide();
 
     // submit the login form
     $('#submit').on('click', function(e) {
@@ -58,6 +62,9 @@ function loginForm(loggedIn, auth_token) {
         // only show the graph when the user is logged in
         $("#graph").show();
         $('#logInForm').hide();
+
+        // show the loading
+        $('#loading').show();
         
         // getting the data
         axios({
@@ -66,6 +73,7 @@ function loginForm(loggedIn, auth_token) {
             headers: {'Authorization': auth_token}
         })
         .then(function(response) {
+            $('#loading').hide();
             // if the data was received, make the chart
             // $('#debug').text(JSON.stringify(response.data));
             if(response.data.positiveCount == 0 && response.data.negativeCount == 0) {
@@ -76,6 +84,7 @@ function loginForm(loggedIn, auth_token) {
             
         })
         .catch(function(response) {
+            $('#loading').hide();
             // $('#debug').text(JSON.stringify(response['message']));
             $("#graph").hide();
             $('#logInForm').show();
