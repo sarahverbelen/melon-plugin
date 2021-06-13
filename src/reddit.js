@@ -5,7 +5,6 @@ import environment from '../src/environments.json';
 chrome.storage.sync.get('settingsObject', function(res) {
     let settings = res.settingsObject;
     if (settings.reddit != 'false') {
-        console.log("scraper running!");
 
         let formData = new FormData();
         formData.append('html', document.documentElement.innerHTML)
@@ -35,14 +34,6 @@ chrome.storage.sync.get('settingsObject', function(res) {
                 headers: { "Content-Type": "multipart/form-data", "Authorization": auth_token },
             
             })
-                .then(function (response) {
-                //handle success
-                console.log(response);
-                })
-                .catch(function (response) {
-                //handle error
-                console.log(response);
-                });
             // solution for infinite scroll based on: https://stackoverflow.com/questions/57313620/how-to-run-chrome-extension-code-repeatedly-on-infinite-scroll-pages
             const targetNode = document.body;
             
@@ -58,7 +49,6 @@ chrome.storage.sync.get('settingsObject', function(res) {
             // Callback function to execute when mutations are observed
             const callback = function (mutationsList, observer) {
                 for (let mutation of mutationsList) {
-                    // console.log(mutation);
                     if (mutation.type == 'childList') {
                         if (mutation.addedNodes.length > 0) {
                             let mutationHtml = mutation.addedNodes[0].innerHTML;
@@ -73,8 +63,6 @@ chrome.storage.sync.get('settingsObject', function(res) {
                                         url: `${environment['api-url']}/record`,
                                         data: postFormData,
                                         headers: { "Content-Type": "multipart/form-data", "Authorization": auth_token },
-                                    }).then(function (res) {
-                                            // console.log(res.data);
                                     });
                                 }
                             }

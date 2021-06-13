@@ -6,8 +6,6 @@ chrome.storage.sync.get('settingsObject', function(res) {
     let settings = res.settingsObject;
     if (settings.facebook != 'false') {
 
-        console.log("scraper running!");
-
         // initial loading
         chrome.storage.sync.get('loggedInObject', function(result) {
             if(result.loggedInObject.loggedIn == true){
@@ -36,14 +34,6 @@ chrome.storage.sync.get('settingsObject', function(res) {
                     data: formData,
                     headers: { "Content-Type": "multipart/form-data", "Authorization": auth_token },
                 })
-                    .then(function (response) {
-                    //handle success
-                    console.log(response);
-                    })
-                    .catch(function (response) {
-                    //handle error
-                    console.log(response);
-                    });
             }, 5000);
 
             // solution for infinite scroll based on: https://stackoverflow.com/questions/57313620/how-to-run-chrome-extension-code-repeatedly-on-infinite-scroll-pages
@@ -65,14 +55,12 @@ chrome.storage.sync.get('settingsObject', function(res) {
             // Callback function to execute when mutations are observed
             const callback = function (mutationsList, observer) {
                 for (let mutation of mutationsList) {
-                    // console.log(mutation);
                     if (mutation.type == 'childList') {
                         if (mutation.addedNodes.length > 0) {
                             let mutationHtml = mutation.addedNodes[0].innerHTML;
                             if (mutationHtml != undefined) {
                                 let spanIndex = mutationHtml.search('span');
                                 if (spanIndex != -1) {
-                                    // console.log(typeof(mutationHtml));
                                     groupedMutations += mutationHtml;
                                     groupedMutationsCount++;
 
@@ -88,13 +76,8 @@ chrome.storage.sync.get('settingsObject', function(res) {
                                         })
                                         .then(function (response) {
                                             //handle success
-                                            console.log(response);
                                             groupedMutationsCount = 0;
                                             groupedMutations = '';
-                                            })
-                                            .catch(function (response) {
-                                            //handle error
-                                            console.log(response);
                                         });
                                         groupedMutationsCount = 0;
                                         groupedMutations = '';

@@ -6,7 +6,6 @@ chrome.storage.sync.get('settingsObject', function(res) {
     let settings = res.settingsObject;
     
     if (settings.twitter != 'false') {
-        console.log("scraper running!");
         
         // initial loading
         chrome.storage.sync.get('loggedInObject', function(result) {
@@ -35,15 +34,7 @@ chrome.storage.sync.get('settingsObject', function(res) {
                     url: `${environment['api-url']}/record`,
                     data: formData,
                     headers: { "Content-Type": "multipart/form-data", "Authorization": auth_token },
-                })
-                    .then(function (response) {
-                    //handle success
-                    console.log(response);
-                    })
-                    .catch(function (response) {
-                    //handle error
-                    console.log(response);
-                    });
+                });
             }, 7000);
         }
 
